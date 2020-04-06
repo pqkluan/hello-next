@@ -12,3 +12,5 @@ pids
 # test output
 .DS_Store
 
+
+.now
