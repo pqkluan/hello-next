@@ -11,6 +11,12 @@ export default function PageLayout(props) {
     <div style={layoutStyle}>
       <Header />
       {props.children}
+
+      <style jsx global>{`
+        * {
+          font-family: Arial;
+        }
+      `}</style>
     </div>
   );
 }

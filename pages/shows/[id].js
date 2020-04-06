@@ -1,6 +1,6 @@
 import PageLayout from "../../components/PageLayout";
 
-function Post(props) {
+function Show(props) {
   const { show } = props;
 
   return (
@@ -18,14 +18,12 @@ function Post(props) {
   );
 }
 
-Post.getInitialProps = async function (context) {
+Show.getInitialProps = async function (context) {
   const { id } = context.query;
   const res = await fetch(`https://api.tvmaze.com/shows/${id}`);
   const show = await res.json();
 
-  console.log(`Fetched show: ${show.name}`);
-
   return { show };
 };
 
-export default Post;
+export default Show;

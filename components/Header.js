@@ -1,18 +1,41 @@
 import Link from "next/link";
 
-const linkStyle = {
-  marginRight: 15
-};
+function getHeaderLinks() {
+  return [
+    { title: "Home", path: "/" },
+    { title: "Shows", path: "/shows" },
+    { title: "About us", path: "/about" },
+  ];
+}
 
-const Header = () => (
-  <div>
-    <Link href="/">
-      <a style={linkStyle}>Home</a>
-    </Link>
-    <Link href="/about">
-      <a style={linkStyle}>About</a>
-    </Link>
-  </div>
-);
+function Header() {
+  const links = React.useMemo(getHeaderLinks);
+
+  return (
+    <div>
+      {links.map((link) => (
+        <Link key={link.title} href={link.path}>
+          <a>{link.title}</a>
+        </Link>
+      ))}
+
+      <style jsx>
+        {`
+          a:link,
+          a:visited {
+            padding-right: 15px;
+            text-decoration: none;
+            color: blue;
+          }
+
+          a:hover,
+          a:active {
+            opacity: 0.8;
+          }
+        `}
+      </style>
+    </div>
+  );
+}
 
 export default Header;
