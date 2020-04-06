@@ -1,22 +1,25 @@
-import { useRouter } from "next/router";
-
 import PageLayout from "../../components/PageLayout";
 
-function PostContent() {
-  const router = useRouter();
+function Post(props) {
+  const { show } = props;
 
-  return (
-    <>
-      <h1>{router.query.id}</h1>
-      <p>This is the blog post content.</p>
-    </>
-  );
-}
-
-export default function Post() {
   return (
     <PageLayout>
-      <PostContent />
+      <h1>{show.name}</h1>
+      <p>{show.summary.replace(/<[/]?[pb]>/g, "")}</p>
+      {show.image ? <img src={show.image.medium} /> : null}
     </PageLayout>
   );
 }
+
+Post.getInitialProps = async function (context) {
+  const { id } = context.query;
+  const res = await fetch(`https://api.tvmaze.com/shows/${id}`);
+  const show = await res.json();
+
+  console.log(`Fetched show: ${show.name}`);
+
+  return { show };
+};
+
+export default Post;
