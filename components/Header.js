@@ -4,6 +4,7 @@ function getHeaderLinks() {
   return [
     { title: "Home", path: "/" },
     { title: "Shows", path: "/shows" },
+    { title: "Random Quote", path: "/quote" },
     { title: "About us", path: "/about" },
   ];
 }
