@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import fetch from "isomorphic-unfetch";
 
@@ -37,24 +38,60 @@ function ShowLink(props: { show: Show }) {
   );
 }
 
-interface Props {
-  shows: Show;
-}
-
 function Shows(props: { shows: Show[] }) {
-  const { shows = [] } = props;
+  const [keyword, setKeyword] = React.useState<string>("");
+  const [shows, setShows] = React.useState<Show[]>([]);
+
+  const onInputChange = React.useCallback(
+    (event: React.FormEvent<HTMLInputElement>) => {
+      // TODO: find a way to de-bounce
+      setKeyword(event?.currentTarget?.value);
+    },
+    [setKeyword]
+  );
+
+  React.useEffect(() => {
+    const storedKeyword = localStorage.getItem("showsKeyword");
+    if (typeof storedKeyword === "string") setKeyword(storedKeyword);
+  }, []);
+
+  React.useEffect(() => {
+    if (typeof keyword !== "string") return;
+
+    localStorage.setItem("showsKeyword", keyword);
+
+    if (!keyword) return;
+
+    fetch(`https://api.tvmaze.com/search/shows?q=${keyword}`)
+      .then((res) => res.json())
+      .then((data: { show: Show }[]) =>
+        setShows(data.map((entry) => entry.show))
+      )
+      .catch((e) => console.error(e));
+  }, [keyword]);
 
   return (
     <PageLayout>
-      <h1>Batman TV Shows</h1>
+      <h1>{"TV Shows"}</h1>
 
-      <b>TODO: implement search</b>
+      <label>{"Search for TV shows: "}</label>
+      <input
+        type="search"
+        id="gsearch"
+        name="gsearch"
+        value={keyword}
+        onChange={onInputChange}
+      />
 
-      <ul>
-        {shows.map((show) => (
-          <ShowLink key={show.id} show={show} />
-        ))}
-      </ul>
+      {!keyword ? (
+        <p>{"Use the search box above^"}</p>
+      ) : (
+        <ul>
+          {shows.map((show) => (
+            <ShowLink key={show.id} show={show} />
+          ))}
+        </ul>
+      )}
 
       <style jsx>{`
         h1,
@@ -65,14 +102,5 @@ function Shows(props: { shows: Show[] }) {
     </PageLayout>
   );
 }
-
-Shows.getInitialProps = async function () {
-  const res = await fetch("https://api.tvmaze.com/search/shows?q=batman");
-  const data: { show: Show }[] = await res.json();
-
-  return {
-    shows: data.map((entry) => entry.show),
-  };
-};
 
 export default Shows;
