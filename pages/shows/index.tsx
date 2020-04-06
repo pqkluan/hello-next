@@ -3,11 +3,19 @@ import fetch from "isomorphic-unfetch";
 
 import PageLayout from "../../components/PageLayout";
 
-function ShowLink(props) {
+export interface Show {
+  id: string;
+  name: string;
+  summary: string;
+  image?: { medium: string };
+}
+
+function ShowLink(props: { show: Show }) {
+  const { show } = props;
   return (
     <li>
-      <Link href="/shows/[id]" as={`/shows/${props.id}`}>
-        <a>{props.name}</a>
+      <Link href="/shows/[id]" as={`/shows/${show.id}`}>
+        <a>{show.name}</a>
       </Link>
 
       <style jsx>{`
@@ -29,7 +37,11 @@ function ShowLink(props) {
   );
 }
 
-function Shows(props) {
+interface Props {
+  shows: Show;
+}
+
+function Shows(props: { shows: Show[] }) {
   const { shows = [] } = props;
 
   return (
@@ -39,8 +51,8 @@ function Shows(props) {
       <b>TODO: implement search</b>
 
       <ul>
-        {shows.map(({ id, name }) => (
-          <ShowLink key={id} id={id} name={name} />
+        {shows.map((show) => (
+          <ShowLink key={show.id} show={show} />
         ))}
       </ul>
 
@@ -56,7 +68,7 @@ function Shows(props) {
 
 Shows.getInitialProps = async function () {
   const res = await fetch("https://api.tvmaze.com/search/shows?q=batman");
-  const data = await res.json();
+  const data: { show: Show }[] = await res.json();
 
   return {
     shows: data.map((entry) => entry.show),

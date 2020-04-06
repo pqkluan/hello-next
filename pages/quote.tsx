@@ -46,14 +46,14 @@ export default function Quote() {
       </main>
 
       <p>
-        Tip: You could add author param this this page url for that author
+        Tip: You could add author param this this page url to filter for an author
         specific quote
       </p>
 
       <p>
         {"Example: "}
-        <Link href={"/quote?author=pqkluan"}>
-          <a>{"/quote?author=pqkluan"}</a>
+        <Link href={"/quote?author=luan"}>
+          <a>{"/quote?author=luan"}</a>
         </Link>
       </p>
     </PageLayout>

@@ -1,10 +1,12 @@
+import { NextApiRequest, NextApiResponse } from "next";
+
 import allQuotes from "./quotes.json";
 
-export default (req, res) => {
+export default (req: NextApiRequest, res: NextApiResponse) => {
   const { author } = req.query;
   let quotes = allQuotes;
 
-  if (author) {
+  if (author && typeof author === "string") {
     quotes = quotes.filter((quote) =>
       quote.author.toLowerCase().includes(author.toLowerCase())
     );

@@ -1,6 +1,9 @@
-import PageLayout from "../../components/PageLayout";
+import { NextPage } from "next";
 
-function Show(props) {
+import PageLayout from "../../components/PageLayout";
+import { Show } from "./index";
+
+const ShowDetails: NextPage<{ show: Show }> = (props) => {
   const { show } = props;
 
   return (
@@ -16,14 +19,14 @@ function Show(props) {
       `}</style>
     </PageLayout>
   );
-}
+};
 
-Show.getInitialProps = async function (context) {
+ShowDetails.getInitialProps = async function (context) {
   const { id } = context.query;
   const res = await fetch(`https://api.tvmaze.com/shows/${id}`);
-  const show = await res.json();
+  const show: Show = await res.json();
 
   return { show };
 };
 
-export default Show;
+export default ShowDetails;
