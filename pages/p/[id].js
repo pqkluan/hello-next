@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 
-import PageLayout from "../components/PageLayout";
+import PageLayout from "../../components/PageLayout";
 
 function PostContent() {
   const router = useRouter();
 
   return (
     <>
-      <h1>{router.query.title || "Missing title param"}</h1>
+      <h1>{router.query.id}</h1>
       <p>This is the blog post content.</p>
     </>
   );
