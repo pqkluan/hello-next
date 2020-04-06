@@ -1,20 +1,9 @@
-import Link from "next/link";
+import PageLayout from "../components/PageLayout";
 
-function Home() {
+export default function Home() {
   return (
-    <ul>
-      <li>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/about">
-          <a>About Us</a>
-        </Link>
-      </li>
-    </ul>
+    <PageLayout>
+      <p>Hello Next.js</p>
+    </PageLayout>
   );
 }
-
-export default Home;

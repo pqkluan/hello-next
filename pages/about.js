@@ -1,7 +1,9 @@
+import PageLayout from "../components/PageLayout";
+
 export default function About() {
   return (
-    <div>
+    <PageLayout>
       <p>This is the about page</p>
-    </div>
+    </PageLayout>
   );
 }
