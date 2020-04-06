@@ -9,6 +9,23 @@ function PostLink(props) {
       <Link href="/p/[id]" as={`/p/${props.id}`}>
         <a>{props.name}</a>
       </Link>
+
+      <style jsx>{`
+        li {
+          list-style: none;
+          margin: 5px 0;
+        }
+
+        a {
+          text-decoration: none;
+          color: blue;
+          font-family: "Arial";
+        }
+
+        a:hover {
+          opacity: 0.6;
+        }
+      `}</style>
     </li>
   );
 }
@@ -25,6 +42,13 @@ function Home(props) {
           <PostLink key={id} id={id} name={name} />
         ))}
       </ul>
+
+      <style jsx>{`
+        h1,
+        ul {
+          padding: 0;
+        }
+      `}</style>
     </PageLayout>
   );
 }

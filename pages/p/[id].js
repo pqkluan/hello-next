@@ -8,6 +8,12 @@ function Post(props) {
       <h1>{show.name}</h1>
       <p>{show.summary.replace(/<[/]?[pb]>/g, "")}</p>
       {show.image ? <img src={show.image.medium} /> : null}
+
+      <style jsx global>{`
+        h1 {
+          text-transform: uppercase;
+        }
+      `}</style>
     </PageLayout>
   );
 }
