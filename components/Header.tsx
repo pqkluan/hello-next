@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 
 function getHeaderLinks() {
@@ -10,7 +11,7 @@ function getHeaderLinks() {
 }
 
 function Header() {
-  const links = React.useMemo(getHeaderLinks);
+  const links = React.useMemo(getHeaderLinks, []);
 
   return (
     <div>

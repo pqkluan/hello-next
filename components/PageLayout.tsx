@@ -1,3 +1,5 @@
+import React from "react";
+
 import Header from "./Header";
 
 const layoutStyle = {
@@ -6,17 +8,11 @@ const layoutStyle = {
   border: "1px solid #DDD",
 };
 
-export default function PageLayout(props) {
+export default function PageLayout(props: React.PropsWithChildren<{}>) {
   return (
     <div style={layoutStyle}>
       <Header />
       {props.children}
-
-      <style jsx global>{`
-        * {
-          font-family: Arial;
-        }
-      `}</style>
     </div>
   );
 }
