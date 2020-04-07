@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 
 import PageLayout from "../components/PageLayout";
+import Head from "next/head";
 
 export default function Quote() {
   const { query } = useRouter();
@@ -20,6 +21,10 @@ export default function Quote() {
 
   return (
     <PageLayout>
+      <Head>
+        <title>{"Random Quote"}</title>
+      </Head>
+
       <main className="center">
         <div className="quote">{quote}</div>
         {author && <span className="author">- {author}</span>}
@@ -46,8 +51,8 @@ export default function Quote() {
       </main>
 
       <p>
-        Tip: You could add author param this this page url to filter for an author
-        specific quote
+        Tip: You could add author param this this page url to filter for an
+        author specific quote
       </p>
 
       <p>

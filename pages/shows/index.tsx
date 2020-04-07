@@ -3,6 +3,7 @@ import Link from "next/link";
 import fetch from "isomorphic-unfetch";
 
 import PageLayout from "../../components/PageLayout";
+import Head from "next/head";
 
 export interface Show {
   id: string;
@@ -72,6 +73,10 @@ function Shows(props: { shows: Show[] }) {
 
   return (
     <PageLayout>
+      <Head>
+        <title>{"Tv Maze Shows"}</title>
+      </Head>
+
       <h1>{"TV Shows"}</h1>
 
       <label>{"Search for TV shows: "}</label>
