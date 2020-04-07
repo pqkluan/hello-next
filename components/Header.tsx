@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React from "react";
 import Link from "next/link";
 
@@ -15,6 +16,12 @@ function Header() {
 
   return (
     <div>
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
       {links.map((link) => (
         <Link key={link.title} href={link.path}>
           <a>{link.title}</a>
@@ -36,6 +43,11 @@ function Header() {
           }
         `}
       </style>
+      <style jsx global>{`
+        * {
+          font-family: "Montserrat", sans-serif;
+        }
+      `}</style>
     </div>
   );
 }
