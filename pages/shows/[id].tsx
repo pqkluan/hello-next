@@ -16,6 +16,11 @@ const ShowDetails: NextPage<{ show: Show }> = (props) => {
         h1 {
           text-transform: uppercase;
         }
+
+        img {
+          max-width: 100%;
+          height: auto;
+        }
       `}</style>
     </PageLayout>
   );

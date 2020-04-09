@@ -26,25 +26,23 @@ export default function Quote() {
       </Head>
 
       <main className="center">
-        <div className="quote">{quote}</div>
+        <div className="quote">{"`" + quote + "`"}</div>
         {author && <span className="author">- {author}</span>}
 
         <style jsx>{`
           main {
             width: 90%;
-            max-width: 900px;
-            margin: 300px auto;
+            margin-top: 100px;
+            margin-bottom: 100px;
             text-align: center;
           }
           .quote {
             font-family: cursive;
-            color: #e243de;
             font-size: 24px;
             padding-bottom: 10px;
           }
           .author {
-            font-family: sans-serif;
-            color: #559834;
+            color: cornflowerblue;
             font-size: 20px;
           }
         `}</style>
