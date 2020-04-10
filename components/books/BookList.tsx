@@ -48,9 +48,9 @@ function BookItem(props: {
 }
 
 export default function BookList() {
-  const { loading, error, data } = useQuery<{
-    books: { id: string; name: string }[];
-  }>(queries.books.getBooks);
+  const { loading, error, data } = useQuery<{ books: Book[] }>(
+    queries.books.getBooks
+  );
   const [selectedBookId, setSelectedBookId] = React.useState<string>("");
 
   React.useEffect(() => {
@@ -74,7 +74,7 @@ export default function BookList() {
           <h1>{"Books"}</h1>
 
           <ul>
-            {data?.books?.map((book: any) => (
+            {data?.books?.map((book) => (
               <BookItem
                 key={book.id}
                 book={book}

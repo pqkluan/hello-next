@@ -7,3 +7,5 @@ export const mutations = {
 export const queries = {
   books: booksQueries,
 };
+
+export { default as client } from "./client";

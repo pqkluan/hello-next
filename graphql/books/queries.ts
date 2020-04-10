@@ -35,4 +35,17 @@ export default {
       }
     }
   `,
+  getAuthor: gql`
+    query GetAuthor($id: ID!) {
+      author(id: $id) {
+        id
+        name
+        age
+        books {
+          id
+          name
+        }
+      }
+    }
+  `,
 };
