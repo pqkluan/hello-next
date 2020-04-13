@@ -49,7 +49,7 @@ function BookItem(props: {
 
 export default function BookList() {
   const { loading, error, data } = useQuery<{ books: Book[] }>(
-    queries.books.getBooks
+    queries.book.getBooks
   );
   const [selectedBookId, setSelectedBookId] = React.useState<string>("");
 
@@ -63,7 +63,7 @@ export default function BookList() {
     setSelectedBookId,
   ]);
 
-  if (error) return <p>{"Error: " + error}</p>;
+  if (error) return <p>{JSON.stringify(error)}</p>;
   if (loading) return <p>{"Loading"}</p>;
   if (data?.books?.length === 0) return <p>{"There is no data"}</p>;
 

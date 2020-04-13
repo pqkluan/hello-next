@@ -31,7 +31,7 @@ function AuthorItem(props: { author: Author }) {
 export default function BookList() {
   const { loading, error, data } = useQuery<{
     authors: Author[];
-  }>(queries.books.getAuthors);
+  }>(queries.author.getAuthors);
 
   if (error) return <p>{error}</p>;
   if (loading) return <p>{"Loading"}</p>;

@@ -17,7 +17,7 @@ interface Author {
 export default function AuthorDetails(props: { authorId: string }) {
   const { authorId } = props;
   const { loading, error, data } = useQuery<{ author: Author }>(
-    queries.books.getAuthor,
+    queries.author.getAuthorWithBook,
     { variables: { id: authorId } }
   );
 
@@ -30,8 +30,9 @@ export default function AuthorDetails(props: { authorId: string }) {
     <>
       <h1>{data.author.name}</h1>
 
-      <h2>{"Age - " + data.author.age}</h2>
+      <h3>{"Age - " + data.author.age}</h3>
 
+      <p>{"Other books by this author:"}</p>
       {data.author.books.length > 0 ? (
         <ul>
           {data.author.books.map((book) => (
@@ -39,7 +40,9 @@ export default function AuthorDetails(props: { authorId: string }) {
           ))}
         </ul>
       ) : (
-        <p>{"This author has not published any book"}</p>
+        <p>
+          <i>{"This author has no books"}</i>
+        </p>
       )}
 
       <Link href={"/authors/" + authorId + "/edit"}>

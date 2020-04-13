@@ -1,16 +1,21 @@
-import React from "react";
-import Head from "next/head";
+import { ApolloProvider } from "@apollo/react-hooks";
 
+import { client } from "../../../graphql";
 import PageLayout from "../../../components/PageLayout";
+import { EditAuthorForm } from "../../../components/authors";
 
-export default function BooksPage() {
+export default function EditAuthorPage(props: any) {
+  const authorId = props?.url?.query?.authorId;
+
   return (
     <PageLayout>
-      <Head>
-        <title>{"Edit Author"}</title>
-      </Head>
-
-      <p>{"//TODO: add form"}</p>
+      <ApolloProvider client={client}>
+        {!!authorId ? (
+          <EditAuthorForm authorId={authorId} />
+        ) : (
+          <p>{"Missing author id"}</p>
+        )}
+      </ApolloProvider>
     </PageLayout>
   );
 }

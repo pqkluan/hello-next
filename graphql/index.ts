@@ -1,11 +1,14 @@
-import { booksMutations, booksQueries } from "./books";
+export { default as client } from "./client";
 
-export const mutations = {
-  books: booksMutations,
-};
+import { authorMutations, authorQueries } from "./Author";
+import { bookMutations, bookQueries } from "./Book";
 
 export const queries = {
-  books: booksQueries,
+  author: authorQueries,
+  book: bookQueries,
 };
 
-export { default as client } from "./client";
+export const mutations = {
+  author: authorMutations,
+  book: bookMutations,
+};

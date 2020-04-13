@@ -1,7 +1,10 @@
 import React from "react";
 import Head from "next/head";
+import { ApolloProvider } from "@apollo/react-hooks";
 
+import { client } from "../../graphql";
 import PageLayout from "../../components/PageLayout";
+import { AddAuthorForm } from "../../components/authors";
 
 export default function BooksPage() {
   return (
@@ -10,7 +13,9 @@ export default function BooksPage() {
         <title>{"Create new Author"}</title>
       </Head>
 
-      <p>{"//TODO: add author form"}</p>
+      <ApolloProvider client={client}>
+        <AddAuthorForm />
+      </ApolloProvider>
     </PageLayout>
   );
 }

@@ -68,14 +68,16 @@ function BookContent(props: { book?: Book }) {
 export default function BookDetails(props: { bookId: string }) {
   const { bookId } = props;
   const { loading, error, data } = useQuery<{ book: Book }>(
-    queries.books.getBook,
-    { variables: { id: bookId } }
+    queries.book.getBook,
+    { variables: { id: bookId }, fetchPolicy: "cache-and-network" }
   );
 
   return (
     <div>
       {!!loading && <p>{"Loading book details..."}</p>}
-      {!!bookId && !!error && <p className={"error"}>{"Error: " + error}</p>}
+      {!!bookId && !!error && (
+        <p className={"error"}>{JSON.stringify(error)}</p>
+      )}
 
       <BookContent book={data?.book} />
 

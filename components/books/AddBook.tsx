@@ -4,9 +4,9 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import { mutations, queries } from "../../graphql";
 
 function AuthorOptions() {
-  const { loading, error, data } = useQuery(queries.books.getAuthors);
+  const { loading, error, data } = useQuery(queries.author.getAuthors);
 
-  if (error) return <option>{"Error:" + JSON.stringify(error)}</option>;
+  if (error) return <option>{JSON.stringify(error)}</option>;
   if (loading) return <option>{"Loading"}</option>;
   if (data?.authors?.length === 0) return <option>{"No author"}</option>;
 
@@ -18,11 +18,11 @@ function AuthorOptions() {
 }
 
 export default function AddBook() {
-  const [name, setName] = React.useState<string>();
-  const [genre, setGenre] = React.useState<string>();
-  const [authorId, setAuthorId] = React.useState<string>();
+  const [name, setName] = React.useState<string>("");
+  const [genre, setGenre] = React.useState<string>("");
+  const [authorId, setAuthorId] = React.useState<string>("");
 
-  const [addBook, addBookResult] = useMutation(mutations.books.addBook);
+  const [addBook, addBookResult] = useMutation(mutations.book.addBook);
 
   const handleSubmit = React.useCallback(
     (e: React.FormEvent<EventTarget>) => {
@@ -35,7 +35,12 @@ export default function AddBook() {
 
       addBook({
         variables: { name, genre, authorId },
-        refetchQueries: [{ query: queries.books.getBooks }],
+        refetchQueries: [{ query: queries.book.getBooks }],
+      }).then((result) => {
+        if (!result?.data?.addBook?.id) return;
+        setName("");
+        setGenre("");
+        setAuthorId("");
       });
     },
     [name, genre, authorId]
@@ -48,24 +53,35 @@ export default function AddBook() {
 
         <div className="field">
           <label>{"Book name:"}</label>
-          <input type="text" onChange={(e) => setName(e.target.value)} />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
 
         <div className="field">
           <label>{"Genre:"}</label>
-          <input type="text" onChange={(e) => setGenre(e.target.value)} />
+          <input
+            type="text"
+            value={genre}
+            onChange={(e) => setGenre(e.target.value)}
+          />
         </div>
 
         <div className="field">
           <label>{"Author:"}</label>
-          <select onChange={(e) => setAuthorId(e.target.value)}>
+          <select
+            value={authorId}
+            onChange={(e) => setAuthorId(e.target.value)}
+          >
             <option>{"Select author"}</option>
             <AuthorOptions />
           </select>
         </div>
 
         <button>{addBookResult.loading ? "Processing" : "Submit"}</button>
-        {!!addBookResult.error && <p>{"Error: " + addBookResult.error}</p>}
+        {!!addBookResult.error && <p>{JSON.stringify(addBookResult.error)}</p>}
       </form>
 
       <style jsx>{`

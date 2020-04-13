@@ -6,7 +6,7 @@ import { queries, mutations } from "../../graphql";
 export default function RemoveButton(props: { bookId: string }) {
   const { bookId } = props;
 
-  const [removeBook, removeResult] = useMutation(mutations.books.removeBook);
+  const [removeBook, removeResult] = useMutation(mutations.book.removeBook);
 
   const handleSubmit = React.useCallback(
     (e: React.FormEvent<EventTarget>) => {
@@ -15,7 +15,7 @@ export default function RemoveButton(props: { bookId: string }) {
 
       removeBook({
         variables: { id: bookId },
-        refetchQueries: [{ query: queries.books.getBooks }],
+        refetchQueries: [{ query: queries.book.getBooks }],
       });
     },
     [bookId]
@@ -25,7 +25,7 @@ export default function RemoveButton(props: { bookId: string }) {
     <div onClick={handleSubmit}>
       {removeResult.loading ? "Processing" : "Remove this book"}
       {!!removeResult.error && (
-        <p className={"error"}>{"Error: " + removeResult.error}</p>
+        <p className={"error"}>{JSON.stringify(removeResult.error)}</p>
       )}
 
       <style jsx>
